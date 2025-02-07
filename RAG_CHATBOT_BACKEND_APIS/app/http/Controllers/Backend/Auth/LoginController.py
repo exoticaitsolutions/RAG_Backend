@@ -17,34 +17,26 @@ class LoginController(View):
 
     @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
-        username_or_address = request.POST.get('username_or_address')
-        print('username_or_address', username_or_address)
-        password = request.POST.get('password')
-        print('password',password )
-        if not username_or_address or not password:
-            logger.warning("Login attempt with missing credentials")
-            return JsonResponse({"status": "failed", "message": "Username and password are required."}, status=400)
+        data = request.POST
+        username_or_email = data.get("username_or_address")
+        password = data.get("password")
 
-        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-        if re.match(email_regex, username_or_address):
-            try:
-                user = User.objects.get(email=username_or_address)  # Try to authenticate by email
-            except User.DoesNotExist:
-                user = None 
+        if not username_or_email or not password:
+            return JsonResponse({"status": "failed", "message": "Username or Email and password are required."})
+
+        # Check if input is email or username
+        if User.objects.filter(email=username_or_email).exists():
+            user = User.objects.get(email=username_or_email)
+            username = user.username
         else:
-            logger.info(f"Attempting login with username: {username_or_address}")
-            try:
-                user = User.objects.get(username=username_or_address)  # Try to authenticate by email
-            except User.DoesNotExist:
-                user = None 
-        logger.info(f"User {user} logged in successfully")
+            username = username_or_email
+
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
+
         if user is not None:
-            if user and user.check_password(password):  # Check the password
-                login(request, user)
-                url = 'http://127.0.0.1:8000/dashboard/home/'
-                return JsonResponse({"status": "success", "message": "User logged in successfully!", "redirect_url": url}, status=200)
-            else:
-                return JsonResponse({"status": "failed", "message": "Invalid username or password!"})
+            login(request, user)
+            url = '/dashboard/home/'
+            return JsonResponse({"status": "success", "message": "User logged in successfully!", "redirect_url": url}, status=200)
         else:
-            logger.warning(f"Failed login attempt for: {username_or_address}")
-            return JsonResponse({"status": "failed", "message": "Invalid username or password!"})
+            return JsonResponse({"status": "failed", "message": "Invalid username or password."})

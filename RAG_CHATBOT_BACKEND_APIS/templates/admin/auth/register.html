@@ -10,7 +10,7 @@
     </div>
     <div class="auth-form">
       <div class="card my-5">
-        <form method="post" id ="signup_process">
+        <form method="post" id="signup_process" action="/register/">
           {% csrf_token %}
           <div class="card-body">
           <div class="text-center">
@@ -22,7 +22,7 @@
           <div class="form-group mb-3" style="color: red;">
           </div>
           <div class="form-group mb-3">
-            <input type="text" class="form-control" hidden  name="register_route_url" id ="register_route_url" value="{% url 'register.get'%}">
+            <input type="text" class="form-control" hidden  name="register_route_url" id ="register_route_url" value="/register/">
             <input type="text" class="form-control" name="username" id ="username" placeholder="Username">
           </div>
           <div class="form-group mb-3">

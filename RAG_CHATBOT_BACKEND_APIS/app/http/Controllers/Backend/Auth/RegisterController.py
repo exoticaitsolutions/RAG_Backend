@@ -15,16 +15,24 @@ class RegisterController(CreateView):
         return render(request, 'admin/auth/register.html')
     
     def post(self, request, *args, **kwargs):
-        # Your registration logic
-        # data = {"message": "Registration successful!"}
         username = request.POST.get('username')
         email = request.POST.get('email')
-        password = request.POST.get('password')
+        
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 != password2:
+            return JsonResponse({"status": "Failed", "message": "Passwords do not match!"})
+
         if User.objects.filter(username=username).exists():
-                return JsonResponse({"status": 'Failed', "message": "Username is already taken"})
+            return JsonResponse({"status": 'Failed', "message": "Username is already taken"})
+
         if User.objects.filter(email=email).exists():
-                    return JsonResponse({"status": 'Failed', "message": "Email is already registered"})
-        user = User.objects.create_user(username=username, email=email, password=password)
+            return JsonResponse({"status": 'Failed', "message": "Email is already registered"})
+
+        # Save user
+        user = User.objects.create_user(username=username, email=email, password=password1)
+        user.save()
+
         url = 'http://127.0.0.1:8000/login/'
-        return JsonResponse({"status": "success", "message": "User registered successfully!" ,'redirect_url':url}, status=200)
-    
+        return JsonResponse({"status": "success", "message": "User registered successfully!", "redirect_url": url}, status=200)

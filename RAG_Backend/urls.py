@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', RedirectView.as_view(url='/login/', permanent=False)),
+    
     path("", include("RAG_CHATBOT_BACKEND_APIS.urls"))
 ]

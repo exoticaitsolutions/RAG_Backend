@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
-
 """
 
 import os
@@ -26,21 +25,28 @@ SECRET_KEY = 'django-insecure-4rui8%q0xhb&$s3ju5-yp^j0i5&@i(pyrople(9y^9g723q@5y
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 ALLOWED_HOSTS = ['*']
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 print(BASE_DIR)
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, "static"),
     os.path.join(BASE_DIR, 'RAG_CHATBOT_BACKEND_APIS/static'),
 ]
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # For `collectstatic`
 # Application definition
+APPEND_SLASH =False
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/uploads/')
 
+# Ensure this is added in DEBUG mode only
+if DEBUG:
+    from django.conf.urls.static import static
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -52,7 +58,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'RAG_CHATBOT_BACKEND_APIS',
     'rest_framework_swagger',
-    'drf_yasg',   
+    'drf_yasg',
+    
 ]
 
 MIDDLEWARE = [
@@ -78,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                 'django.template.context_processors.media',
             ],
         },
     },
@@ -96,6 +104,7 @@ __import__('pysqlite3')
 import sys
 
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 
 if DB_TYPE == 'sqlite3':
     print('Using SQLite3')
@@ -117,6 +126,7 @@ else:
     }
     }
 
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -135,6 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -145,6 +156,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -158,14 +170,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # settings.py
 
-import os
-
-# Path for media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# (Optional) Allow specific file types for security reasons
-ALLOWED_UPLOAD_TYPES = ['image/jpeg', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
 
 # settings.py
 

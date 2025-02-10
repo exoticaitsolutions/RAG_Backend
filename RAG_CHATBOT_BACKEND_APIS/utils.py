@@ -27,7 +27,15 @@ from langchain_community.vectorstores import Chroma
 logger = logging.getLogger(__name__)
 
 # Global variable declaration
-
+def ensure_directory_exists(directory_path):
+    """
+    Ensure that the given directory exists. If not, create it.
+    """
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)  # Creates all intermediate directories if necessary
+        print(f"✅ Created directory: {directory_path}")
+    else:
+        print(f"✅ Directory already exists: {directory_path}")
 
 def save_pdf_to_chroma(pdf_file_path):
     """Extract text from PDF and save it to Chroma DB."""

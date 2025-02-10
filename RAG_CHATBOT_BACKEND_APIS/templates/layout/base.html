@@ -110,11 +110,7 @@
                         <span class="pc-mtext">Chatbot Assistant AI</span>
                     </a>
                     <ul class="pc-submenu" style="overflow:auto;">
-<<<<<<< HEAD
                         <li class="pc-item"><a class="pc-link" href="/dashboard/services/chatbot/create/">Create Chatbot</a></li>
-=======
-                        <li class="pc-item"><a class="pc-link" href="/add-assistants">Create Chatbot</a></li>
->>>>>>> d96878f (Initial commit)
                         {% for chatbot in data.user_chatbots %}
                         <li class="pc-item text-capitalize"><a class="pc-link" href="/document-list/{{chatbot.id}}">{{chatbot.chatbot_name}}</a>
                         </li>
@@ -122,11 +118,7 @@
                     </ul>
                 </li>
                 <li class="pc-item pc-hasmenu">
-<<<<<<< HEAD
                     <a href="/dashboard/services/chatbot/history/<str:c_id>/" class="pc-link">
-=======
-                    <a href="/training" class="pc-link">
->>>>>>> d96878f (Initial commit)
                             <span class="pc-micon">
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                               class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
@@ -138,11 +130,7 @@
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-<<<<<<< HEAD
                     <a href="/dashboard/services/chatbot/get/<str:c_id>/" class="pc-link">
-=======
-                    <a href="/resources" class="pc-link">
->>>>>>> d96878f (Initial commit)
                             <span class="pc-micon">
                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                   class="bi bi-file-person-fill" viewBox="0 0 16 16">
@@ -155,20 +143,12 @@
                 </li>
                 <div class="card pc-user-card">
                     <div class="card-body">
-<<<<<<< HEAD
                         <a href="/dashboard/services/chatbot/setting/<str:c_id>/">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
                                     <img src="{% static 'backend/image/pp.jpg' %}" alt="user-image"
                                     class="user-avtar wid-45 rounded-circle"/>
                                
-=======
-                        <a href="/setting-account">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <img src="{{user.profile_pic.url}}" alt="user-image"
-                                         class="user-avtar wid-45 rounded-circle"/>
->>>>>>> d96878f (Initial commit)
                                 </div>
                                 <div class="flex-grow-1 ms-3 me-2">
                                     <h6 class="mb-0 text-capitalize">Settings/Billing</h6>
@@ -181,7 +161,6 @@
             <footer style="position: fixed;padding: 10px 10px 0px 10px;bottom: 0; background: #f8f9fa;">
                 <div id="user-info" style="margin: 0 0 20px 33px;">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<<<<<<< HEAD
                     {% comment %} <a href="/setting-account">
                         <img src="{{request.user.profile_pic.url}}" alt="user-image" class="user-avtar"
                              style="border: 1px solid #9f9f9f;width: 44px; height: 44px; border-radius: 58px; color: var(--pc-header-color); overflow: hidden;"/>
@@ -189,15 +168,6 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/">
                         <img src="{% static 'backend/image/off.png' %}" alt="off" class="user-avtar"
-=======
-                    <a href="/setting-account">
-                        <img src="{{request.user.profile_pic.url}}" alt="user-image" class="user-avtar"
-                             style="border: 1px solid #9f9f9f;width: 44px; height: 44px; border-radius: 58px; color: var(--pc-header-color); overflow: hidden;"/>
-                    </a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/logout">
-                        <img src="/media/default_images/Power-off.png" alt="user-image" class="user-avtar"
->>>>>>> d96878f (Initial commit)
                              style="border: 1px solid #9f9f9f;width: 44px; height: 44px; border-radius: 58px; color: var(--pc-header-color); overflow: hidden;"/>
                     </a>
                 </div>
@@ -334,10 +304,6 @@
 
   <script src="{% static 'backend/vendor/js/menu.js' %}"></script>
   <!-- endbuild -->
-<<<<<<< HEAD
-=======
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
->>>>>>> d96878f (Initial commit)
 
   <!-- Vendors JS -->
   <script src="{% static 'backend/vendor/libs/bootstrap-maxlength/bootstrap-maxlength.js' %}"></script>

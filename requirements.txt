@@ -13,3 +13,4 @@ openai
 chromadb 
 PyMuPDF
 langchain-community
+selenium

@@ -11,7 +11,7 @@ from rest_framework.decorators import parser_classes
 
 from RAG_CHATBOT_BACKEND_APIS.app.http.Serializers.DocumentUpload import DocumentUploadSerializer
 from RAG_CHATBOT_BACKEND_APIS.app.services.training.train_document import uploaded_document_and_train_llm
-from RAG_CHATBOT_BACKEND_APIS.models import ChatBotDB, Document, DocumentNamespaceIds
+from RAG_CHATBOT_BACKEND_APIS.models import ChatBotDB, DocumentNamespaceIds
 
 # Configure Logger
 logger = logging.getLogger(__name__)

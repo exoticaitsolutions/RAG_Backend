@@ -17,6 +17,8 @@ const Ajax_response = async (url, method, values, beforetask, success, callback)
 };
 
 function NotyfMessage(message, type) {
+    console.log('message',message);
+    
     var notyf = new Notyf();
     if (type === 'success') {
         notyf.success(message);

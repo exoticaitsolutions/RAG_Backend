@@ -75,7 +75,6 @@ class APIDocumentController(APIView):
                 # Check if document already exists
                 if DocumentNamespaceIds.objects.filter(doc_name=media_file).exists():
                     logger.info(f"Document {file_name} already exists in namespace")
-                
                 # Prepare serializer data
                 data = {
                     "user_id": user_id,
@@ -84,7 +83,6 @@ class APIDocumentController(APIView):
                     "name": uploaded_file.name,
                     "size": uploaded_file.size
                 }
-
                 serializer = DocumentUploadSerializer(data=data)
                 if serializer.is_valid():
                     document_instance = serializer.save()

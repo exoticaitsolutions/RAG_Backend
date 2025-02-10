@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function sendMessageToAPI(message) {
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;  // Get CSRF token
-        
-        fetch("http://127.0.0.1:8000/pdf/api/v1/query/", {
+        var chat_bot_url = $('#chat_bot_url').val()
+        fetch(chat_bot_url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

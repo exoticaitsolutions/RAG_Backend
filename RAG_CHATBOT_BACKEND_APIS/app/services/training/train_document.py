@@ -43,8 +43,8 @@ def inserting_doc_chromadb(reader_docs, ChromaDb_Dir, collection, document_id, c
 
     # Store in ChromaDB
     print(f"[INFO] Storing {len(texts)} chunks in ChromaDB at {ChromaDb_Dir}")
-    db = Chroma.from_documents(texts, embed_fun, persist_directory=ChromaDb_Dir, collection_name=collection, ids=ids)
-    
+    # db = Chroma.from_documents(texts, embed_fun, persist_directory=ChromaDb_Dir, collection_name=collection, ids=ids)
+    db = Chroma.from_documents(texts, embed_fun, persist_directory=ChromaDb_Dir)
     # Update document details safely
     document.no_of_characters = int(len(full_page_content))
     document.no_of_chunks = int(len(texts))

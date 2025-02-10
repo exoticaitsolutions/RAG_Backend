@@ -3,18 +3,22 @@ from django.conf import settings
 from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
+# Import Controllers
 from RAG_CHATBOT_BACKEND_APIS import admin_view
 from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.API.APIDocumentController import APIDocumentController
+from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.API.ChromaQueryAPIViewController import ChromaQueryAPIViewController
 from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.ChatBot.DocumentController import DocumentController
-from . import views
 from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.Auth.RegisterController import RegisterController
 from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.Auth.LoginController import LoginController
-# Define schema view for Swagger UI
+from . import views
+
+# Swagger API Documentation Configuration
 schema_view = get_schema_view(
     openapi.Info(
         title="File Upload API",
         default_version="v1",
-        description="API for uploading PDFs",
+        description="API for uploading PDFs and querying ChromaDB",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@myapi.com"),
         license=openapi.License(name="BSD License"),
@@ -22,25 +26,30 @@ schema_view = get_schema_view(
     public=True,
 )
 
-# Grouped URL patterns
+# ======================================
+#               URL Patterns
+# ======================================
+
+# Core URLs
 urlpatterns = [
-
+    path('chatbot/', views.chatbot_view, name='chatbot'),
+    # API Endpoints
+    path("api/v1/upload/pdf/", APIDocumentController.as_view(), name="upload_pdf"),
+    path("api/v1/query/", ChromaQueryAPIViewController.as_view(), name="chroma_query"),
+    # API Documentation
+    path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-docs'),
+    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc-docs'),
     
 ]
 
-
-# Admin Authentication
+# Admin Authentication URLs
 admin_auth_urls = [
-    # Login Routes 
-    path('login/', LoginController.as_view(), name='login.get'),
-    # Register Routes
-    path('register/', RegisterController.as_view(), name='register.get'),
+    path('login/', LoginController.as_view(), name='login'),
+    path('register/', RegisterController.as_view(), name='register'),
 ]
 
-# Admin Dashboard
+# Admin Dashboard URLs
 admin_dashboard_urls = [
-    
-    # Document parser Functionalty 
     path("dashboard/services/chatbot/get/<str:c_id>/", DocumentController().show_upload_form, name="document-list"),
     # path("upload-document/<str:c_id>/", DocumentController().upload_and_train, name="upload-document"),
     path('upload-document/<str:c_id>', DocumentController().upload_and_train, name="upload-document"),
@@ -49,37 +58,28 @@ admin_dashboard_urls = [
     path("dashboard/services/chatbot/get1/<str:c_id>/", admin_view.admin_dashborad_document_list, name="document-list"),
     path("dashboard/services/chatbot/preview/<str:c_id>/", admin_view.admin_dashboard_preview_chat_bot, name="preview-chatbot"),
     path("dashboard/services/chatbot/history/<str:c_id>/", admin_view.admin_dashborad_chatbot_history, name="chat-history"),
-   path("dashboard/services/chatbot/setting/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting, name="chat-setting"),
+    path("dashboard/services/chatbot/setting/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting, name="chat-setting"),
     path("dashboard/services/chatbot/chatbot-appearance/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting_apperence, name="chat-setting-apperence"),
     path("dashboard/services/chatbot/delete/<str:c_id>/", admin_view.admin_dashborad_chatbot_delete, name="chat-setting-delete"),
     path("dashboard/services/chatbot/intergation/<str:c_id>/", admin_view.admin_dashborad_chatbot_share, name="chat-setting-intergation"),
-
-    path('chatbot/', views.chatbot_view, name='chatbot'),
-
-
 ]
 
-# Chatbot Services
+# Chatbot Services URLs
 chatbot_urls = [
-   #  path("chatbot/chatbot-history/<str:c_id>/", admin_view.admin_dashborad_chatbot_history, name="chat-history"),
+    # Placeholder for additional chatbot-related URLs
 ]
 
-# API Endpoints
-api_urls = [
-
-    path("api/v1/upload/pdf/", APIDocumentController.as_view(), name="upload_pdf"),
-    path("pdf/api/v1/upload-pdf/", views.upload_pdf_with_loader, name="upload_pdf_with_loader"),
-    path("pdf/api/v1/query/", views.ChromaQueryAPIView, name="ChromaQueryAPIView"),
-]
-
-# Swagger Documentation
+# Swagger API Documentation URLs
 swagger_urls = [
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
 ]
 
-# Combine all routes
-urlpatterns += admin_auth_urls + admin_dashboard_urls + chatbot_urls + api_urls + swagger_urls
+# ======================================
+#     Combine All Route Groups
+# ======================================
 
-# Serve media files in development
+urlpatterns += admin_auth_urls + admin_dashboard_urls + chatbot_urls + swagger_urls
+
+# Serve Media Files in Development Mode
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -515,7 +515,6 @@
                 <!-- Email View -->
             </div>
         </div>
-    
         <!-- Compose Email -->
         <div class="app-email-compose modal" id="emailComposeSidebar" tabindex="-1" aria-labelledby="emailComposeSidebar" aria-hidden="true" bis_skin_checked="1">
             <div class="modal-dialog m-0 me-md-4 mb-4 modal-lg" bis_skin_checked="1">
@@ -640,7 +639,6 @@
             </div>
         </div>
         <!-- /Compose Email -->
-    
       <div class="modal fade" id="addSourceModal" tabindex="-1" aria-hidden="true" bis_skin_checked="1">
         <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered" bis_skin_checked="1">
           <div class="modal-content p-3 p-md-5" bis_skin_checked="1">
@@ -678,9 +676,6 @@
       </div>
     </div>
     
-    
-    
-    
     <!-- Add multiple Files -->
       <div class="modal animate__animated animate__jackInTheBox fade" id="addFileModal" tabindex="-1" aria-hidden="true" bis_skin_checked="1">
         <div class="modal-dialog modal-xl" bis_skin_checked="1">
@@ -696,7 +691,7 @@
                   <h5 class="card-header">File Upload</h5>
                   <div class="card-body" bis_skin_checked="1">
                     <form class="dropzone needsclick dz-clickable" id="dropzone-multi" enctype="multipart/form-data" method="POST" action="/upload-document/1">
-                      <input type="hidden" name="csrfmiddlewaretoken" value="nRnrlvQD0W4BIEFTLLWgw7vt3g3Ri8VXqgeCfHyb8TIdsTuUHFN84K8e08PLTq6l">
+                      {% csrf_token %}
                             <div class="dz-message needsclick" bis_skin_checked="1">
                               Drop file here or click to upload
                               <span class="note needsclick">

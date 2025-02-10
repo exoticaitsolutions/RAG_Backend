@@ -1,34 +1,60 @@
 (function() {
+   
     document.head.insertAdjacentHTML('beforeend', 
         '<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css" rel="stylesheet" />'
     );
 
-    // Chatbot container
+
     var chatbotContainer = document.createElement("div");
     chatbotContainer.id = "chatbot-container";
     chatbotContainer.style.position = "fixed";
-    chatbotContainer.style.bottom = "20px";
-    chatbotContainer.style.right = "20px";
-    chatbotContainer.style.width = "300px";
-    chatbotContainer.style.height = "400px";
-    chatbotContainer.style.background = "#fff";
-    chatbotContainer.style.border = "1px solid #ccc";
+    chatbotContainer.style.bottom = "73px";
+    chatbotContainer.style.right = "60px";
+    chatbotContainer.style.width = "350px";
+    chatbotContainer.style.height = "500px";
+    chatbotContainer.style.background = "rgb(221 211 211)";
+    chatbotContainer.style.border = "2px solid #ccc";
     chatbotContainer.style.borderRadius = "10px";
     chatbotContainer.style.overflow = "hidden";
     chatbotContainer.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
+    chatbotContainer.style.display = "none";  // Initially hidden
     chatbotContainer.innerHTML = `
-        <div id="chat-header" style="background: #007bff; color: white; padding: 10px; text-align: center;">
+        <div id="chat-header" 
+         style="background: #d77496; color: white;
+          padding: 12px; text-align: center; font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    display: flex; align-items: center; justify-content: center;">
+    <img src="/static/backend/image/ai_logo.png" alt="Profile" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
             Chatbot
         </div>
-        <div id="chat-messages" style="height: 300px; overflow-y: auto; padding: 10px;">
+        <div id="chat-messages" style="height: 386px; overflow-y: auto; padding: 10px;">
             <p>Welcome! Ask me anything.</p>
         </div>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
         <input type="text" id="chat-input" placeholder="Type your message..." 
             style="width: 80%; padding: 10px; border: none; border-top: 1px solid #ccc;">
-        <button id="chat-submit" style="width: 20%; padding: 10px; border: none; background: #007bff; color: white; cursor: pointer;">Send</button>
+        <button id="chat-submit" style="width: 20%; padding: 10px; border: none; background: #d77496; color: #7476e0; cursor: pointer; text-align: center; font-weight: bold">Send</button>
+        </div>
     `;
-
     document.body.appendChild(chatbotContainer);
+
+    // Create the launcher icon
+    var launcherIcon = document.createElement("div");
+    launcherIcon.id = "launcher-icon";
+    launcherIcon.style.position = "fixed";
+    launcherIcon.style.bottom = "20px";
+    launcherIcon.style.right = "20px";
+    launcherIcon.style.width = "60px";
+    launcherIcon.style.height = "60px";
+    launcherIcon.style.backgroundColor = "#d77496";
+    launcherIcon.style.borderRadius = "50%";
+    launcherIcon.style.cursor = "pointer";
+    launcherIcon.style.display = "flex";
+    launcherIcon.style.alignItems = "center";
+    launcherIcon.style.justifyContent = "center";
+    launcherIcon.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
+    launcherIcon.innerHTML = `<span style="color: white; font-size: 24px;">💬</span>`;  // You can replace this with an image
+    document.body.appendChild(launcherIcon);
 
     // Function to send a message to the API
     function sendMessageToAPI(message) {
@@ -41,7 +67,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            displayMessage(data.response, "bot");
+            displayMessage(data.results[0].text, "bot");  
         })
         .catch(error => {
             console.error("Error:", error);
@@ -62,7 +88,7 @@
             msgDiv.style.background = "#f1f1f1";
             msgDiv.style.textAlign = "left";
         } else {
-            msgDiv.style.background = "#007bff";
+            msgDiv.style.background = "#d77496";
             msgDiv.style.color = "white";
             msgDiv.style.textAlign = "right";
         }
@@ -82,7 +108,16 @@
         }
     });
 
-    // Enter key listener
+    // Event listener for the launcher icon click to toggle chatbot visibility
+    launcherIcon.addEventListener("click", function() {
+        if (chatbotContainer.style.display === "none") {
+            chatbotContainer.style.display = "block";  
+        } else {
+            chatbotContainer.style.display = "none"; 
+        }
+    });
+
+
     document.getElementById("chat-input").addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
             document.getElementById("chat-submit").click();

@@ -26,7 +26,7 @@ class APIDocumentController(APIView):
         manual_parameters=[
             openapi.Parameter("chat_id", openapi.IN_QUERY, description="Chatbot ID", type=openapi.TYPE_INTEGER, required=True),
             openapi.Parameter("user_id", openapi.IN_QUERY, description="User ID", type=openapi.TYPE_INTEGER, required=True),
-            
+            openapi.Parameter("file1", openapi.IN_QUERY, description="file1 ID", type=openapi.TYPE_INTEGER, required=True),
         ],
         responses={
             201: openapi.Response("Success", openapi.Schema(type=openapi.TYPE_OBJECT, properties={

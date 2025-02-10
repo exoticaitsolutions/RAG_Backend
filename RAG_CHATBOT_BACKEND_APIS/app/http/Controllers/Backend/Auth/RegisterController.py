@@ -32,7 +32,7 @@ class RegisterController(CreateView):
             return JsonResponse({"status": 'Failed', "message": "Email is already registered"})
 
         # Save user
-        user = User.objects.create_user(username=username, email=email, password=password1)
+        user = User.objects.create_user(username=username, email=email, password=password1) # type: ignore
         user.save()
 
         url = 'http://127.0.0.1:8000/login/'

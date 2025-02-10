@@ -4,6 +4,8 @@ from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from RAG_CHATBOT_BACKEND_APIS import admin_view
+from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.API.APIDocumentController import APIDocumentController
+from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.ChatBot.DocumentController import DocumentController
 from . import views
 from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.Auth.RegisterController import RegisterController
 from RAG_CHATBOT_BACKEND_APIS.app.http.Controllers.Backend.Auth.LoginController import LoginController
@@ -22,8 +24,10 @@ schema_view = get_schema_view(
 
 # Grouped URL patterns
 urlpatterns = [
-  
+
+    
 ]
+
 
 # Admin Authentication
 admin_auth_urls = [
@@ -31,13 +35,18 @@ admin_auth_urls = [
     path('login/', LoginController.as_view(), name='login.get'),
     # Register Routes
     path('register/', RegisterController.as_view(), name='register.get'),
+    
 ]
 
 # Admin Dashboard
 admin_dashboard_urls = [
+    # Document parser Functionalty 
+    path("dashboard/services/chatbot/get/<str:c_id>/", DocumentController().show_upload_form, name="document-list"),
+    # path("upload-document/<str:c_id>/", DocumentController().upload_and_train, name="upload-document"),
+    path('upload-document/<str:c_id>', DocumentController().upload_and_train, name="upload-document"),
     path("dashboard/home/", admin_view.admin_dashborad_page, name="admin_dashborad_page"),
     path("dashboard/services/chatbot/create/", admin_view.admin_dashborad_add_assistant_page, name="admin_dashborad_add_assistant_page"),
-    path("dashboard/services/chatbot/get/<str:c_id>/", admin_view.admin_dashborad_document_list, name="document-list"),
+    path("dashboard/services/chatbot/get1/<str:c_id>/", admin_view.admin_dashborad_document_list, name="document-list"),
     path("dashboard/services/chatbot/preview/<str:c_id>/", admin_view.admin_dashboard_preview_chat_bot, name="preview-chatbot"),
     path("dashboard/services/chatbot/history/<str:c_id>/", admin_view.admin_dashborad_chatbot_history, name="chat-history"),
     path("dashboard/services/chatbot/setting/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting, name="chat-setting"),
@@ -45,7 +54,7 @@ admin_dashboard_urls = [
     path("dashboard/services/chatbot/delete/<str:c_id>/", admin_view.admin_dashborad_chatbot_delete, name="chat-setting-delete"),
     path("dashboard/services/chatbot/intergation/<str:c_id>/", admin_view.admin_dashborad_chatbot_share, name="chat-setting-intergation"),
 
-    path('chatbot/', views.chatbot_view, name='chatbot'),
+   
 
 
 ]
@@ -57,8 +66,9 @@ chatbot_urls = [
 
 # API Endpoints
 api_urls = [
+
+    path("api/v1/upload/pdf/", APIDocumentController.as_view(), name="upload_pdf"),
     path("pdf/api/v1/upload-pdf/", views.upload_pdf_with_loader, name="upload_pdf_with_loader"),
-    path("url/api/v1/upload-url/", views.upload_url_with_loader, name="upload_url_with_loader"),
     path("pdf/api/v1/query/", views.ChromaQueryAPIView, name="ChromaQueryAPIView"),
 ]
 

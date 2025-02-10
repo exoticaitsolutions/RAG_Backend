@@ -25,7 +25,6 @@ urlpatterns = [
   
 ]
 
-
 # Admin Authentication
 admin_auth_urls = [
     # Login Routes 
@@ -59,6 +58,7 @@ chatbot_urls = [
 # API Endpoints
 api_urls = [
     path("pdf/api/v1/upload-pdf/", views.upload_pdf_with_loader, name="upload_pdf_with_loader"),
+    path("url/api/v1/upload-url/", views.upload_url_with_loader, name="upload_url_with_loader"),
     path("pdf/api/v1/query/", views.ChromaQueryAPIView, name="ChromaQueryAPIView"),
 ]
 

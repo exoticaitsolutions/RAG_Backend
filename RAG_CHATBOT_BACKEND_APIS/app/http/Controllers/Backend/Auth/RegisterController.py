@@ -9,6 +9,7 @@ from django.contrib.auth.models import User  # Update if using a custom model
 from django.views.generic.edit import CreateView
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+
 class RegisterController(CreateView):
 
     def get(self, request):

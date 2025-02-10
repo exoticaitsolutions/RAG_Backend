@@ -36,3 +36,4 @@ class RegisterController(CreateView):
 
         url = 'http://127.0.0.1:8000/login/'
         return JsonResponse({"status": "success", "message": "User registered successfully!", "redirect_url": url}, status=200)
+

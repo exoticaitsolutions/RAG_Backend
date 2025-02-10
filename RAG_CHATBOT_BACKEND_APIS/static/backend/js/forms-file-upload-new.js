@@ -130,19 +130,19 @@ if (dropzoneMulti) {
         autoProcessQueue: false, // Disable auto upload
         acceptedFiles: ".pdf, .csv, .docx, .txt, .ppt, .pptx"
     });
-
     // Add a success event listener to refresh the page after all files are uploaded
     myDropzoneMulti.on("success", function (file, response) {
         console.log("_____________________________")
         var show_alert = document.getElementById("show_alert");
-        show_alert.classList.add("d-none");
+        show_alert.classList.add("addFileModal232_testing");
         if (myDropzoneMulti.getQueuedFiles().length === 0 && myDropzoneMulti.getUploadingFiles().length === 0) {
             location.reload(); // Refresh the page
         }
     });
-
     // Add an error event listener to display an error message if any files fail to upload
     myDropzoneMulti.on("error", function (file, errorMessage, xhr) {
+      var show_alert = document.getElementById("addFileModal");
+        show_alert.classList.add("addFileModal232_testing");
         Swal.fire('Error', 'An error occurred while uploading the files.', 'error');
     });
 
@@ -153,10 +153,10 @@ if (dropzoneMulti) {
             const oversizedFiles = files.filter(file => file.size > 100 * 1024 * 1024); // Check for files larger than 100 MB (100 * 1024 * 1024 bytes)
 
             var show_alert = document.getElementById("show_alert");
-            show_alert.classList.add("d-none");
+            show_alert.classList.add("addFileModal232_testing");
 
             if (oversizedFiles.length > 0) {
-                show_alert.classList.remove("d-none")
+                show_alert.classList.remove("addFileModal232_testing")
                 show_alert.innerHTML = 'File is Over Sized, Please select other file.'
             } else if (files.length > 0) {
                 myDropzoneMulti.processQueue(function () {
@@ -165,7 +165,7 @@ if (dropzoneMulti) {
 
                 });
             } else {
-                show_alert.classList.remove("d-none")
+                show_alert.classList.remove("addFileModal232_testing")
                 show_alert.innerHTML = 'Please select a File.'
             }
         });

@@ -45,7 +45,10 @@ admin_dashboard_urls = [
     path("dashboard/services/chatbot/delete/<str:c_id>/", admin_view.admin_dashborad_chatbot_delete, name="chat-setting-delete"),
     path("dashboard/services/chatbot/intergation/<str:c_id>/", admin_view.admin_dashborad_chatbot_share, name="chat-setting-intergation"),
 
-    path('chatbot/', views.chatbot_view, name='chatbot'),
+    path('dashboard/services/chatbot/website-list/', admin_view.website_list, name='website-list'),
+    
+    path('chatbot/', admin_view.chatbot_view, name='chatbot'),
+    
 
 
 ]

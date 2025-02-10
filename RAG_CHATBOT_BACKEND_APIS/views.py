@@ -177,7 +177,5 @@ def ChromaQueryAPIView(request):
 
 
 
-def chatbot_view(request):
-    return render(request, 'chatbot.html')  
 
 

@@ -15,7 +15,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv()
 import pymysql
 pymysql.install_as_MySQLdb()
 # Quick-start development settings - unsuitable for production
@@ -30,12 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-DB_TYPE = os.getenv('DB_TYPE')
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
-CHROMA_DRIVER_FOLDER = os.getenv('CHROMA_DRIVER_FOLDER')
-UPLOAD_MEDIA_FOLDER = os.getenv('UPLOAD_MEDIA_FOLDER')
+print(BASE_DIR)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     # os.path.join(BASE_DIR, "static"),
@@ -76,8 +70,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'RAG_CHATBOT_BACKEND_APIS.app.http.Middleware.auth_middleware.AuthMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'RAG_Backend.urls'
@@ -101,7 +93,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'RAG_Backend.wsgi.application'
 
-
+load_dotenv()
+DB_TYPE = os.getenv('DB_TYPE')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 # 
 # Database

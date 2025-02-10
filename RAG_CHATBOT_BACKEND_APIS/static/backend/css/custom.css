@@ -1,25 +1,6 @@
 .diplayblock {
     display: none;
   }
-/* Initially hide the modal */
-#show_alert {
-  display: none;
-  /* Add other styles for positioning and appearance */
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  border-radius: 5px;
-  z-index: 1000;
-}
-
-.addFileModal232_testing {
-  display: block; /* Show the modal when the class is added */
-}
-
 
   @media only screen and (max-width: 767px) and (orientation: portrait) {
     /* Add your styles for mobile portrait mode here */

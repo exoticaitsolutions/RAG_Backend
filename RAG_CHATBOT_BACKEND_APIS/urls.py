@@ -24,7 +24,8 @@ schema_view = get_schema_view(
 
 # Grouped URL patterns
 urlpatterns = [
-path('chatbot/', views.chatbot_view, name='chatbot'),
+
+    
 ]
 
 
@@ -34,27 +35,27 @@ admin_auth_urls = [
     path('login/', LoginController.as_view(), name='login.get'),
     # Register Routes
     path('register/', RegisterController.as_view(), name='register.get'),
-    
 ]
 
 # Admin Dashboard
 admin_dashboard_urls = [
+    
     # Document parser Functionalty 
     path("dashboard/services/chatbot/get/<str:c_id>/", DocumentController().show_upload_form, name="document-list"),
     # path("upload-document/<str:c_id>/", DocumentController().upload_and_train, name="upload-document"),
     path('upload-document/<str:c_id>', DocumentController().upload_and_train, name="upload-document"),
-    path("dashboard/", admin_view.admin_dashborad_page, name="admin_dashborad_page"),
-    
+
+    path("dashboard/home/", admin_view.admin_dashborad_page, name="admin_dashborad_page"),
     path("dashboard/services/chatbot/create/", admin_view.admin_dashborad_add_assistant_page, name="admin_dashborad_add_assistant_page"),
     path("dashboard/services/chatbot/get1/<str:c_id>/", admin_view.admin_dashborad_document_list, name="document-list"),
     path("dashboard/services/chatbot/preview/<str:c_id>/", admin_view.admin_dashboard_preview_chat_bot, name="preview-chatbot"),
     path("dashboard/services/chatbot/history/<str:c_id>/", admin_view.admin_dashborad_chatbot_history, name="chat-history"),
-    path("dashboard/services/chatbot/setting/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting, name="chat-setting"),
+   path("dashboard/services/chatbot/setting/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting, name="chat-setting"),
     path("dashboard/services/chatbot/chatbot-appearance/<str:c_id>/", admin_view.admin_dashborad_chatbot_setting_apperence, name="chat-setting-apperence"),
     path("dashboard/services/chatbot/delete/<str:c_id>/", admin_view.admin_dashborad_chatbot_delete, name="chat-setting-delete"),
     path("dashboard/services/chatbot/intergation/<str:c_id>/", admin_view.admin_dashborad_chatbot_share, name="chat-setting-intergation"),
 
-   
+    path('chatbot/', views.chatbot_view, name='chatbot'),
 
 
 ]
